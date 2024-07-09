@@ -5,6 +5,7 @@ import usePost from "../services/usePost";
 import useCreatePost from "../services/useCreatePost";
 import useDeletePost from "../services/useDeletePost";
 import { IPost } from "../types/Post";
+import { useUpdatePost } from "../services/useUpdatePost";
 
 const MainPost: React.FC<{
   handleViewPost: (id: string) => void;
@@ -12,6 +13,7 @@ const MainPost: React.FC<{
   const { data: posts, isLoading: isGetPosts } = usePost();
   const { mutate: addPost, isPending: isCreating } = useCreatePost();
   const { mutate: deletePost, isPending: isDeletingPost } = useDeletePost();
+  const { mutate: updatePost } = useUpdatePost();
 
   const [postUpdate, setPostUpdate] = useState({
     id: "",
@@ -22,6 +24,10 @@ const MainPost: React.FC<{
   const handleUpdate = (id: string) => setPostUpdate({ id });
   const handleData = (data: IPost | Record<string, FormDataEntryValue>) => {
     if (data.id) {
+      updatePost({
+        id: data.id as string,
+        post: data as IPost,
+      });
       setPostUpdate({ id: "" });
       return;
     }

@@ -1,14 +1,10 @@
 import { useState } from "react";
-import "./App.css";
 import PostView from "./components/PostView";
-
 import MainPost from "./components/MainPost";
+import "./App.css";
 
 function App() {
-  const [postView, setPostView] = useState({
-    show: false,
-    id: "",
-  });
+  const [postView, setPostView] = useState({ show: false, id: "" });
 
   const handleViewPost = (id: string) => setPostView({ show: true, id });
   const handleBackPost = () => setPostView({ show: false, id: "" });
